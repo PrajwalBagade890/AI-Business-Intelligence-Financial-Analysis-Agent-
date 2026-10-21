@@ -8,6 +8,14 @@ Executive-level interactive interface providing:
 5. Deterministic financial math workbench.
 """
 
+import sys
+from pathlib import Path
+
+# Add project root to sys.path to guarantee 'app' and 'frontend' resolution
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 import streamlit as st
 import pandas as pd
 import requests
