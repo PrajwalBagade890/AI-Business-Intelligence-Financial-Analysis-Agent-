@@ -24,6 +24,8 @@ from typing import Dict, Any, List
 
 # Local module imports for standalone or integrated operation
 from app.config import settings
+from app.database.connection import init_db
+from app.database.seed_data import seed_database
 from app.database.schema_inspector import get_schema_summary
 from app.tools.sql_tool import safe_sql_executor
 from app.tools.financial_tools import (
@@ -40,6 +42,13 @@ from frontend.components.charts import (
     plot_product_profitability,
     plot_expense_breakdown,
 )
+
+# Ensure database tables exist and are seeded on cold start
+try:
+    init_db()
+    seed_database(force_recreate=False)
+except Exception as e:
+    pass
 
 # Page Configuration
 st.set_page_config(
